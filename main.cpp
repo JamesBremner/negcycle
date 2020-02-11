@@ -48,20 +48,24 @@ void AddNew(  vector< vector<int> >& negcycs, vector<int>& path )
     negcycs.push_back( path );
 }
 
+bool IsCyclePossible( int v, graph_t& g )
+{
+    if( ! out_degree( v, g) )
+        return false;;
+    auto es = edges(g);
+    for (auto eit = es.first; eit != es.second; ++eit)
+        if( (int)boost::target(*eit, g) == v )
+            return true;
+    return false;
+}
+
 vector< vector<int> > negcycs( graph_t& g )
 {
     vector< vector<int> > vnegcycs;
     for( int start = 0; start < (int)num_vertices(g); start++ )
     {
         // check that a cycle can start and finish on this vertex
-        if( ! out_degree( start, g) )
-            continue;
-        int in_degree = 0;
-        auto es = edges(g);
-        for (auto eit = es.first; eit != es.second; ++eit)
-            if( (int)boost::target(*eit, g) == start )
-                in_degree++;
-        if( ! in_degree )
+        if( ! IsCyclePossible( start, g) )
             continue;
 
         //cout << "start " << start << "\n";
@@ -77,6 +81,7 @@ vector< vector<int> > negcycs( graph_t& g )
                         pred.data(),
                         boost::on_tree_edge()))));
 
+         auto es = edges(g);
         for (auto eit = es.first; eit != es.second; ++eit)
         {
             // check for back edge
