@@ -85,6 +85,55 @@ main(int, char *[])
         cout << "FAILED!!!\n";
         exit(1);
     }
+
+        // construct graph with 1 negative cycles
+    graph_t g3(6);
+    add_edge( 0, 1, -1, g3 );
+    add_edge( 1, 2, -2, g3 );
+    add_edge( 2, 0, -3, g3 );
+    add_edge( 2, 3,  1, g3 );
+    add_edge( 3, 4, -1, g3 );
+    add_edge( 4, 5, -1, g3 );
+    add_edge( 5, 3, 10, g3 );   // back edge makes this a +ve cycle
+
+    vnegcycs = NC.find( g3   );
+
+    for( auto& c : vnegcycs )
+    {
+        for( int v : c )
+            cout << v << " ";
+        cout << "\n";
+    }
+
+    if( (int)vnegcycs.size() != 1 ) {
+        cout << "FAILED!!!\n";
+        exit(1);
+    }
+
+            // construct graph with 1 negative cycles
+    graph_t g4(6);
+    add_edge( 0, 1, -1, g4 );
+    add_edge( 1, 2, -2, g4 );
+    add_edge( 2, 0, -3, g4 );
+    add_edge( 2, 3,  1, g4 );
+    add_edge( 3, 4, 10, g4 );
+    add_edge( 4, 5, -1, g4 );
+    add_edge( 5, 3, -1, g4 );
+
+    vnegcycs = NC.find( g3   );
+
+    for( auto& c : vnegcycs )
+    {
+        for( int v : c )
+            cout << v << " ";
+        cout << "\n";
+    }
+
+    if( (int)vnegcycs.size() != 1 ) {
+        cout << "FAILED!!!\n";
+        exit(1);
+    }
+
     cout << "Unit tests passed\n";
 
 }

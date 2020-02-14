@@ -34,6 +34,7 @@
 			<Add directory="$(#boost)" />
 		</Compiler>
 		<Unit filename="../../../src/Timer.cpp" />
+		<Unit filename="../../../src/negcyc.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -38,7 +38,8 @@
 			<Add option="-static" />
 			<Add option="-static-libgcc" />
 		</Linker>
-		<Unit filename="main.cpp" />
+		<Unit filename="../../../src/UnitTest.cpp" />
+		<Unit filename="../../../src/negcyc.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
