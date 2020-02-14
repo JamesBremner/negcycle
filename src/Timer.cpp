@@ -33,13 +33,20 @@ void add_edge( int a, int b, double w, graph_t& g )
 }
 
 int
-main(int, char *[])
+main(int argc, char* argv[])
 {
+    if( argc != 2 )
+    {
+        cout << "Usage: Timer <node_count>\n";
+        exit(1);
+    }
+    int nodeCount = atoi( argv[1] );
+
     vector< vector<int> > vnegcycs;
     cNegCyc<graph_t> NC;
 
     minstd_rand gen;
-    graph_t g10(ERGen(gen, 100, 0.05, true), ERGen(), 100);
+    graph_t g10(ERGen(gen, nodeCount, 0.05, true), ERGen(), nodeCount);
     auto es = edges(g10);
     for (auto eit = es.first; eit != es.second; ++eit)
         g10[*eit].myWeight = -1;
